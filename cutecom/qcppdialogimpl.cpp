@@ -635,13 +635,12 @@ bool QCPPDialogImpl::eventFilter(QObject* watched, QEvent *e)
    {
       if (ke->state()==Qt::NoModifier)
       {
-         if (ke->key()==Qt::Key_Up)
+         switch (ke->key())
          {
+         case Qt::Key_Up:
             prevCmd();
             return true;
-         }
-         else if (ke->key()==Qt::Key_Down)
-         {
+         case Qt::Key_Down:
             nextCmd();
             return true;
          }
