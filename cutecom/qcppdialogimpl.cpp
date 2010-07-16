@@ -30,7 +30,7 @@
 #include <qsettings.h>
 #include <qevent.h>
 #include <qprogressdialog.h>
-#include <qapplication.h>
+#include <QApplication>
 #include <qfileinfo.h>
 #include <qregexp.h>
 #include <qspinbox.h>
@@ -642,6 +642,14 @@ bool QCPPDialogImpl::eventFilter(QObject* watched, QEvent *e)
             return true;
          case Qt::Key_Down:
             nextCmd();
+            return true;
+         case Qt::Key_PageUp:
+            // scroll up view
+            qApp->sendEvent(m_outputView, e);
+            return true;
+         case Qt::Key_PageDown:
+            // scroll down view
+            qApp->sendEvent(m_outputView, e);
             return true;
          }
       }
