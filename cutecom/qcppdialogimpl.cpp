@@ -31,6 +31,7 @@
 #include <qevent.h>
 #include <qprogressdialog.h>
 #include <QApplication>
+#include <QScrollBar>
 #include <qfileinfo.h>
 #include <qregexp.h>
 #include <qspinbox.h>
@@ -1374,8 +1375,13 @@ void QCPPDialogImpl::doOutput()
       return;
    }
 
+   // scroll view only if slider is at bottom
+   QScrollBar *vbar = m_outputView->verticalScrollBar();
+   const bool at_bottom = vbar->value() == vbar->maximum();
    m_outputView->insertPlainText(m_outputBuffer);
-   m_outputView->ensureCursorVisible();
+   if (at_bottom)
+      vbar->setValue(vbar->maximum());
+
    m_outputBuffer.clear();
 }
 
