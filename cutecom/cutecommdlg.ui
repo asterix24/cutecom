@@ -311,7 +311,8 @@
         <widget class="QTextBrowser" name="m_outputView" >
          <property name="font" >
           <font>
-           <family>Courier</family>
+            <family>Monospace</family>
+            <pointsize>11</pointsize>
           </font>
          </property>
         </widget>
