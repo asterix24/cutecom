@@ -1379,7 +1379,10 @@ void QCPPDialogImpl::doOutput()
    // scroll view only if slider is at bottom
    QScrollBar *vbar = m_outputView->verticalScrollBar();
    const bool at_bottom = vbar->value() == vbar->maximum();
-   m_outputView->insertPlainText(m_outputBuffer);
+   // ...but still insert text at the end of the document!
+   QTextCursor cursor = m_outputView->textCursor();
+   cursor.movePosition(QTextCursor::End);
+   cursor.insertText(m_outputBuffer);
    if (at_bottom)
       vbar->setValue(vbar->maximum());
 
