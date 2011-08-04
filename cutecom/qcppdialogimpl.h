@@ -1,4 +1,5 @@
 /*  Copyright (C) 2004-2005 Alexander Neundorf <neundorf@kde.org>
+    Copyright (C) 2010 Luca Ottaviano <lcottaviano@gmail.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

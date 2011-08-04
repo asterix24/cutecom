@@ -154,6 +154,9 @@
      </item>
      <item row="0" column="2">
       <widget class="QComboBox" name="m_deviceCb">
+       <property name="focusPolicy">
+        <enum>Qt::StrongFocus</enum>
+       </property>
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -316,11 +319,8 @@
            <pointsize>11</pointsize>
           </font>
          </property>
-         <property name="textInteractionFlags">
-          <set>Qt::TextSelectableByMouse</set>
-         </property>
-         <property name="openLinks">
-          <bool>false</bool>
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
          </property>
         </widget>
        </item>
@@ -427,7 +427,11 @@
       </property>
       <layout class="QVBoxLayout">
        <item>
-        <widget class="QListWidget" name="m_oldCmdsLb"/>
+        <widget class="QListWidget" name="m_oldCmdsLb">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout">
@@ -591,11 +595,11 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <tabstops>
   <tabstop>m_connectPb</tabstop>
-  <tabstop>m_closePb</tabstop>
-  <tabstop>m_aboutPb</tabstop>
-  <tabstop>m_quitPb</tabstop>
   <tabstop>m_deviceCb</tabstop>
   <tabstop>m_baudCb</tabstop>
+  <tabstop>m_cmdLe</tabstop>
+  <tabstop>m_closePb</tabstop>
+  <tabstop>m_quitPb</tabstop>
   <tabstop>m_dataBitsCb</tabstop>
   <tabstop>m_stopCb</tabstop>
   <tabstop>m_parityCb</tabstop>
@@ -604,19 +608,17 @@
   <tabstop>m_readCb</tabstop>
   <tabstop>m_writeCb</tabstop>
   <tabstop>m_applyCb</tabstop>
-  <tabstop>m_outputView</tabstop>
   <tabstop>m_clearOutputPb</tabstop>
   <tabstop>m_hexOutputCb</tabstop>
   <tabstop>m_enableLoggingCb</tabstop>
   <tabstop>m_logAppendCb</tabstop>
   <tabstop>m_logFileLe</tabstop>
   <tabstop>m_logFileFileDialog</tabstop>
-  <tabstop>m_cmdLe</tabstop>
+  <tabstop>m_aboutPb</tabstop>
   <tabstop>m_sendPb</tabstop>
   <tabstop>m_protoPb</tabstop>
   <tabstop>m_inputModeCb</tabstop>
   <tabstop>m_charDelaySb</tabstop>
-  <tabstop>m_oldCmdsLb</tabstop>
  </tabstops>
  <resources/>
  <connections/>

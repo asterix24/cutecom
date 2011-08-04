@@ -1,4 +1,5 @@
 /*  Copyright (C) 2004-2009 Alexander Neundorf <neundorf@kde.org>
+    Copyright (C) 2010 Luca Ottaviano <lcottaviano@gmail.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,7 +31,8 @@
 #include <qsettings.h>
 #include <qevent.h>
 #include <qprogressdialog.h>
-#include <qapplication.h>
+#include <QApplication>
+#include <QScrollBar>
 #include <qfileinfo.h>
 #include <qregexp.h>
 #include <qspinbox.h>
@@ -635,14 +637,21 @@ bool QCPPDialogImpl::eventFilter(QObject* watched, QEvent *e)
    {
       if (ke->state()==Qt::NoModifier)
       {
-         if (ke->key()==Qt::Key_Up)
+         switch (ke->key())
          {
+         case Qt::Key_Up:
             prevCmd();
             return true;
-         }
-         else if (ke->key()==Qt::Key_Down)
-         {
+         case Qt::Key_Down:
             nextCmd();
+            return true;
+         case Qt::Key_PageUp:
+            // scroll up view
+            qApp->sendEvent(m_outputView, e);
+            return true;
+         case Qt::Key_PageDown:
+            // scroll down view
+            qApp->sendEvent(m_outputView, e);
             return true;
          }
       }
@@ -1367,10 +1376,16 @@ void QCPPDialogImpl::doOutput()
       return;
    }
 
+   // scroll view only if slider is at bottom
+   QScrollBar *vbar = m_outputView->verticalScrollBar();
+   const bool at_bottom = vbar->value() == vbar->maximum();
+   // ...but still insert text at the end of the document!
    QTextCursor cursor = m_outputView->textCursor();
    cursor.movePosition(QTextCursor::End);
-//   m_outputView->append(m_outputBuffer);
    cursor.insertText(m_outputBuffer);
+   if (at_bottom)
+      vbar->setValue(vbar->maximum());
+
    m_outputBuffer.clear();
 }
 
