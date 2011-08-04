@@ -1362,13 +1362,16 @@ void QCPPDialogImpl::addOutput(const QString& text)
 
 void QCPPDialogImpl::doOutput()
 {
-	if (m_outputBuffer.isEmpty())
-	{
-	  return;
-	}
-	m_outputView->insertPlainText(m_outputBuffer);
-	m_outputView->ensureCursorVisible();
-	m_outputBuffer.clear();
+   if (m_outputBuffer.isEmpty())
+   {
+      return;
+   }
+
+   //m_outputView->append(m_outputBuffer);
+   QTextCursor cursor = m_outputView->textCursor();
+   cursor.movePosition(QTextCursor::End);
+   cursor.insertText(m_outputBuffer);
+   m_outputBuffer.clear();
 }
 
 void QCPPDialogImpl::hexOutputClicked(bool /* on */)
