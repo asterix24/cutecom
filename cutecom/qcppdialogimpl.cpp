@@ -898,6 +898,51 @@ bool QCPPDialogImpl::sendByte(char c, unsigned int delay)
    return true;
 }
 
+static int setRTS(int fd, int level)
+{
+	int status;
+
+	if (ioctl(fd, TIOCMGET, &status) == -1)
+	{
+		perror("setRTS(): TIOCMGET");
+		return 0;
+	}
+	if (level)
+		status |= TIOCM_RTS;
+	else
+		status &= ~TIOCM_RTS;
+
+	if (ioctl(fd, TIOCMSET, &status) == -1)
+	{
+		perror("setRTS(): TIOCMSET");
+		return 0;
+	}
+
+	return 1;
+}
+
+static int setDTR(int fd, int level)
+{
+	int status;
+
+	if (ioctl(fd, TIOCMGET, &status) == -1)
+	{
+		perror("setDTR(): TIOCMGET");
+		return 0;
+	}
+	if (level)
+		status |= TIOCM_DTR;
+	else
+		status &= ~TIOCM_DTR;
+
+	if (ioctl(fd, TIOCMSET, &status) == -1)
+	{
+		perror("setDTR(): TIOCMSET");
+		return 0;
+	}
+
+	return 1;
+}
 
 void QCPPDialogImpl::connectTTY()
 {
@@ -952,6 +997,8 @@ void QCPPDialogImpl::connectTTY()
 
       setNewOptions(baudrate, dataBits, parity, stop, softwareHandshake, hardwareHandshake);
    }
+   setRTS(m_fd, 1);
+   setDTR(m_fd, 0);
 
    m_connectPb->setEnabled(false);
    m_deviceCb->setEnabled(false);
